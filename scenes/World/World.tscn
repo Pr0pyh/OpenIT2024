@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://46651c5cnr4l"]
+[gd_scene load_steps=12 format=3 uid="uid://46651c5cnr4l"]
 
 [ext_resource type="PackedScene" uid="uid://6e6q36x0sdiv" path="res://scenes/Player/Player.tscn" id="1_8liol"]
+[ext_resource type="Texture2D" uid="uid://bc2gai7jjskcj" path="res://assets/textures/PixelTexture (122).png" id="2_b6tty"]
 [ext_resource type="PackedScene" uid="uid://cmbp6rfixrv6w" path="res://scenes/WeaponPickUp/GunPickup.tscn" id="2_gflus"]
 [ext_resource type="PackedScene" uid="uid://bqe5tdhgpoqjn" path="res://scenes/Weapon/Cleaver/Cleaver.tscn" id="3_8n0bf"]
+[ext_resource type="Texture2D" uid="uid://kb6uvusbbpyw" path="res://assets/textures/PixelTexture (153).png" id="3_l6bwd"]
+[ext_resource type="PackedScene" uid="uid://cakcpcbgj3xg5" path="res://scenes/Enemy/Enemy.tscn" id="4_d6ejy"]
 
 [sub_resource type="Environment" id="Environment_xvaly"]
 background_mode = 1
@@ -11,7 +14,20 @@ background_energy_multiplier = 1.55
 ambient_light_source = 2
 ambient_light_color = Color(0.2, 0.505882, 0.67451, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgh2k"]
+albedo_texture = ExtResource("2_b6tty")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_22y3v"]
+material = SubResource("StandardMaterial3D_vgh2k")
+size = Vector2(15, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8ejf"]
+albedo_texture = ExtResource("3_l6bwd")
+uv1_scale = Vector3(10, 10, 10)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_gli5f"]
+material = SubResource("StandardMaterial3D_g8ejf")
 size = Vector2(15, 15)
 
 [node name="World" type="Node3D"]
@@ -25,13 +41,17 @@ sensitivity = 0.05
 environment = SubResource("Environment_xvaly")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_22y3v")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -6.411, 0, 0)
 mesh = SubResource("PlaneMesh_gli5f")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
-light_energy = 30.0
+light_energy = 10.182
 light_indirect_energy = 0.95
-spot_range = 6.925
+spot_range = 8.783
 spot_attenuation = 1.03526
 spot_angle = 55.98
 spot_angle_attenuation = 0.933034
@@ -47,3 +67,6 @@ gunScene = ExtResource("3_8n0bf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26461, 0)
 light_color = Color(0.235294, 1, 1, 1)
 sky_mode = 1
+
+[node name="Enemy" parent="." instance=ExtResource("4_d6ejy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)

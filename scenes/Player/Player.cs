@@ -20,18 +20,22 @@ public partial class Player : CharacterBody3D
     Camera3D camera;
     Weapon weapon;
     Node3D inventory;
+    Timer timer;
     //private promenjive
     float mouseMove;
     float sway = 5;
+    int health = 100;
     //public override funkcije
     public override void _Ready()
     {
         //pristupanje scenama
         camera = GetNode<Camera3D>("Camera3D");
         inventory = camera.GetNode<Node3D>("Inventory");
+        timer = GetNode<Timer>("Timer");
         //inicijalizacija
         state = STATE.MOVING;
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        timer.Start();
     }
 
     public override void _Input(InputEvent @event)
@@ -86,7 +90,9 @@ public partial class Player : CharacterBody3D
     private void shootState()
     {
         if(Input.IsActionJustPressed("shoot") && weapon != null)
-            weapon.shoot();
+        {
+            weapon.shoot(this);
+        }
     }
     private void swayMove(double delta)
     {
@@ -107,5 +113,18 @@ public partial class Player : CharacterBody3D
         Weapon weaponInstance = (Weapon)weaponScene.Instantiate();
         inventory.AddChild(weaponInstance);
         weapon = weaponInstance;
+    }
+    public void heal(int count)
+    {
+        if(health <= 120)
+            health += count;
+    }
+    public void _on_timer_timeout()
+    {
+        health -= 1;
+        timer.Start();
+        GD.Print(health);
+        if(health <= 0)
+            GetTree().ReloadCurrentScene();
     }
 }

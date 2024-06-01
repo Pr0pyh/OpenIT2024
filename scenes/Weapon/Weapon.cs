@@ -3,7 +3,7 @@ using System;
 
 public partial class Weapon : Node
 {
-    public virtual void shoot()
+    public virtual void shoot(Player player)
     {
 
     }
