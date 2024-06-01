@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://beinvndtesdnp"]
+
+[ext_resource type="PackedScene" uid="uid://bjknancstnm8m" path="res://assets/models/cleaver/satara.glb" id="1_eba65"]
+
+[node name="satara" instance=ExtResource("1_eba65")]
+
+[node name="Cube" parent="." index="1"]
+transform = Transform3D(0.210007, 0, 0, 0, 0.12839, 0.872425, 0, -0.335589, 0.333772, 1, -0.663639, -0.213742)
+layers = 2

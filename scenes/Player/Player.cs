@@ -18,6 +18,7 @@ public partial class Player : CharacterBody3D
     public float sensitivity;
     //private scene promenjive
     Camera3D camera;
+    Camera3D viewportCamera;
     Weapon weapon;
     Node3D inventory;
     Timer timer;
@@ -25,11 +26,14 @@ public partial class Player : CharacterBody3D
     float mouseMove;
     float sway = 5;
     int health = 100;
+    double amount;
+    double trauma;
     //public override funkcije
     public override void _Ready()
     {
         //pristupanje scenama
         camera = GetNode<Camera3D>("Camera3D");
+        viewportCamera = camera.GetNode<SubViewportContainer>("SubViewportContainer").GetNode<SubViewport>("SubViewport").GetNode<Camera3D>("Camera3D");
         inventory = camera.GetNode<Node3D>("Inventory");
         timer = GetNode<Timer>("Timer");
         //inicijalizacija
@@ -57,7 +61,9 @@ public partial class Player : CharacterBody3D
                 moveState(delta);
                 swayMove(delta);
                 shootState();
+                shakeState(delta);
                 exitState();
+                cameraUpdate();
                 break;
             case STATE.SHOOTING:
                 break;
@@ -65,6 +71,10 @@ public partial class Player : CharacterBody3D
     }
 
     //privatne funkcije
+    private void cameraUpdate()
+    {
+        viewportCamera.GlobalTransform = camera.GlobalTransform;
+    }
     private void exitState()
     {
         if(Input.IsActionPressed("exit"))
@@ -91,7 +101,7 @@ public partial class Player : CharacterBody3D
     {
         if(Input.IsActionJustPressed("shoot") && weapon != null)
         {
-            weapon.shoot(this);
+            trauma = weapon.shoot(this);
         }
     }
     private void swayMove(double delta)
@@ -106,6 +116,20 @@ public partial class Player : CharacterBody3D
 				inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, 0.0f, 0.0f), (float)(delta*5));
         }
     }
+    private void shake()
+    {
+        amount = trauma;
+		camera.HOffset = (float)(1 * amount * GD.RandRange(-1, 1));
+		camera.VOffset = (float)(1 * amount * GD.RandRange(-1, 1));
+    }
+    private void shakeState(double delta)
+	{
+		if(!(trauma < 0.0))
+		{
+			shake();
+			trauma = Mathf.Max((float)(trauma - 0.8*delta), 0.0f);
+		}
+	}
     //public metode
     public void pickup(PackedScene weaponScene)
     {

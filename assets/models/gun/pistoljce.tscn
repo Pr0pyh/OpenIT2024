@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dugg5mgykuu20"]
+
+[ext_resource type="PackedScene" uid="uid://dkwdorbqqxlom" path="res://assets/models/gun/pistoljce.glb" id="1_tuafs"]
+
+[node name="pistoljce" instance=ExtResource("1_tuafs")]
+
+[node name="Grip Scale" parent="." index="0"]
+transform = Transform3D(0.0853058, 4.52559e-10, 0.0103533, 0.0103533, -3.72883e-09, -0.0853058, 0, 0.0859317, -3.7562e-09, -0.242, -0.198, 0)
+layers = 2
