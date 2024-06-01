@@ -18,12 +18,15 @@ public partial class Player : CharacterBody3D
     public float sensitivity;
     //private scene promenjive
     Camera3D camera;
+    Weapon weapon;
+    Node3D inventory;
     //private promenjive
     //public override funkcije
     public override void _Ready()
     {
         //pristupanje scenama
         camera = GetNode<Camera3D>("Camera3D");
+        inventory = camera.GetNode<Node3D>("Inventory");
         //inicijalizacija
         state = STATE.MOVING;
     }
@@ -44,6 +47,7 @@ public partial class Player : CharacterBody3D
         {
             case STATE.MOVING:
                 moveState(delta);
+                shootState();
                 break;
             case STATE.SHOOTING:
                 break;
@@ -66,5 +70,19 @@ public partial class Player : CharacterBody3D
 
         Velocity = moveVector*speed;
         MoveAndSlide();
+    }
+
+    private void shootState()
+    {
+        if(Input.IsActionJustPressed("shoot") && weapon != null)
+            weapon.shoot();
+    }
+    //public metode
+    public void pickup(PackedScene weaponScene)
+    {
+        if(weapon != null) weapon.drop(GlobalPosition);
+        Weapon weaponInstance = (Weapon)weaponScene.Instantiate();
+        inventory.AddChild(weaponInstance);
+        weapon = weaponInstance;
     }
 }
