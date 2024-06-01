@@ -1,10 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://46651c5cnr4l"]
+[gd_scene load_steps=6 format=3 uid="uid://46651c5cnr4l"]
 
 [ext_resource type="PackedScene" uid="uid://6e6q36x0sdiv" path="res://scenes/Player/Player.tscn" id="1_8liol"]
 [ext_resource type="PackedScene" uid="uid://cmbp6rfixrv6w" path="res://scenes/WeaponPickUp/GunPickup.tscn" id="2_gflus"]
+[ext_resource type="PackedScene" uid="uid://bqe5tdhgpoqjn" path="res://scenes/Weapon/Cleaver/Cleaver.tscn" id="3_8n0bf"]
 
 [sub_resource type="Environment" id="Environment_xvaly"]
-ambient_light_color = Color(0, 0, 0.396078, 1)
+background_mode = 1
+background_color = Color(0.396078, 0, 0, 1)
+background_energy_multiplier = 1.55
+ambient_light_source = 2
+ambient_light_color = Color(0.2, 0.505882, 0.67451, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gli5f"]
 size = Vector2(15, 15)
@@ -24,11 +29,21 @@ mesh = SubResource("PlaneMesh_gli5f")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
-spot_range = 5.57
-spot_attenuation = 1.86607
+light_energy = 30.0
+light_indirect_energy = 0.95
+spot_range = 6.925
+spot_attenuation = 1.03526
+spot_angle = 55.98
+spot_angle_attenuation = 0.933034
 
 [node name="GunPickup" parent="." instance=ExtResource("2_gflus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6)
 
 [node name="GunPickup2" parent="." instance=ExtResource("2_gflus")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.51383, 1, -1.23365)
+gunScene = ExtResource("3_8n0bf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26461, 0)
+light_color = Color(0.235294, 1, 1, 1)
+sky_mode = 1

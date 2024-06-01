@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqe5tdhgpoqjn"]
+
+[ext_resource type="Script" path="res://scenes/Weapon/Cleaver/Cleaver.cs" id="1_pedu4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jgowb"]
+size = Vector3(1, 4, 1)
+
+[sub_resource type="Animation" id="Animation_6htbh"]
+resource_name = "shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.37733), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.103891, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.393308, 0.179451, 0.442087), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_87eo5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.393308, 0.179451, 0.442087)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 1.37733)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ebptv"]
+_data = {
+"RESET": SubResource("Animation_87eo5"),
+"shoot": SubResource("Animation_6htbh")
+}
+
+[node name="Cleaver" type="Node3D"]
+script = ExtResource("1_pedu4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.918612, -0.359128, 0.164861, 0.395161, 0.834848, -0.383246, 0, 0.417201, 0.908814, 0, 0, 1.37733)
+mesh = SubResource("BoxMesh_jgowb")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ebptv")
+}

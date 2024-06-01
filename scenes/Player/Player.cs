@@ -29,6 +29,7 @@ public partial class Player : CharacterBody3D
         inventory = camera.GetNode<Node3D>("Inventory");
         //inicijalizacija
         state = STATE.MOVING;
+        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     public override void _Input(InputEvent @event)
@@ -48,6 +49,7 @@ public partial class Player : CharacterBody3D
             case STATE.MOVING:
                 moveState(delta);
                 shootState();
+                exitState();
                 break;
             case STATE.SHOOTING:
                 break;
@@ -55,6 +57,11 @@ public partial class Player : CharacterBody3D
     }
 
     //privatne funkcije
+    private void exitState()
+    {
+        if(Input.IsActionPressed("exit"))
+            GetTree().Quit();
+    }
     private void moveState(double delta)
     {
         Vector3 moveVector = new Vector3(0.0f, 0.0f, 0.0f);
