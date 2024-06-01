@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://euu60fn50khd"]
+[gd_scene load_steps=9 format=3 uid="uid://euu60fn50khd"]
 
 [ext_resource type="Script" path="res://scenes/Weapon/Gun/Gun.cs" id="1_1icad"]
 [ext_resource type="PackedScene" uid="uid://dugg5mgykuu20" path="res://assets/models/gun/pistoljce.tscn" id="2_u624w"]
@@ -46,8 +46,25 @@ tracks/1/keys = {
 "values": [Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0), Vector3(0, 1.5708, 0.698132), Vector3(0, 1.5708, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_cfdh6"]
+resource_name = "break"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pistoljce:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(3.49664e-06, 1.5708, -1.309)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6xj5i"]
 _data = {
+"break": SubResource("Animation_cfdh6"),
 "shoot": SubResource("Animation_io20a")
 }
 
@@ -60,8 +77,8 @@ layers = 2
 mesh = SubResource("BoxMesh_lkpxn")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-target_position = Vector3(0, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0198469, 0, -1.21532)
+target_position = Vector3(0, 0, -40)
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [node name="Flash" type="Node3D" parent="."]
@@ -78,4 +95,20 @@ libraries = {
 }
 
 [node name="pistoljce" parent="." instance=ExtResource("2_u624w")]
-transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0, -0.475, -0.522)
+transform = Transform3D(-7.23998e-06, 0, 2, 0, 2, 0, -2, 0, -7.23998e-06, 0, -0.475, -0.522)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -76.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 8
+text = "
+"
