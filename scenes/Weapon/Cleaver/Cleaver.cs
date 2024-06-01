@@ -15,6 +15,7 @@ public partial class Cleaver : Weapon
     public override double shoot(Player player)
     {
         rayCast.ForceRaycastUpdate();
+        animPlayer.Stop();
         animPlayer.Play("shoot");
         if(rayCast.IsColliding() && rayCast.GetCollider().GetType() == typeof(Enemy))
         {

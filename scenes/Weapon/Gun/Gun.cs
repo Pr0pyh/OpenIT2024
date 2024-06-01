@@ -31,6 +31,7 @@ public partial class Gun : Weapon
             Enemy enemy = (Enemy)rayCast.GetCollider();
             player.heal(enemy.damage(3, player));
         }
+        animPlayer.Stop();
         animPlayer.Play("shoot");
         return 0.03;
     }
