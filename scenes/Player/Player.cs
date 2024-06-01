@@ -20,22 +20,29 @@ public partial class Player : CharacterBody3D
     Camera3D camera;
     Weapon weapon;
     Node3D inventory;
+    Timer timer;
     //private promenjive
+    float mouseMove;
+    float sway = 5;
+    int health = 100;
     //public override funkcije
     public override void _Ready()
     {
         //pristupanje scenama
         camera = GetNode<Camera3D>("Camera3D");
         inventory = camera.GetNode<Node3D>("Inventory");
+        timer = GetNode<Timer>("Timer");
         //inicijalizacija
         state = STATE.MOVING;
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        timer.Start();
     }
 
     public override void _Input(InputEvent @event)
     {
         if(@event is InputEventMouseMotion mouseMotion)
         {
+            mouseMove = -mouseMotion.Relative.X;
             camera.RotateX(Mathf.DegToRad(mouseMotion.Relative.Y*sensitivity*-1));
 			camera.RotationDegrees = new Vector3(Mathf.Clamp(camera.RotationDegrees.X, -75.0f, 75.0f), 0.0f, 0.0f);
 			this.RotateY(Mathf.DegToRad(mouseMotion.Relative.X*sensitivity*-1));
@@ -48,6 +55,7 @@ public partial class Player : CharacterBody3D
         {
             case STATE.MOVING:
                 moveState(delta);
+                swayMove(delta);
                 shootState();
                 exitState();
                 break;
@@ -82,7 +90,21 @@ public partial class Player : CharacterBody3D
     private void shootState()
     {
         if(Input.IsActionJustPressed("shoot") && weapon != null)
-            weapon.shoot();
+        {
+            weapon.shoot(this);
+        }
+    }
+    private void swayMove(double delta)
+    {
+        if(mouseMove != null)
+        {
+            if(mouseMove > sway)
+                inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, 0.1f, 0.0f), (float)(delta*5));
+            else if(mouseMove < -sway)
+                inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, -0.1f, 0.0f), (float)(delta*5));
+            else
+				inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, 0.0f, 0.0f), (float)(delta*5));
+        }
     }
     //public metode
     public void pickup(PackedScene weaponScene)
@@ -91,5 +113,18 @@ public partial class Player : CharacterBody3D
         Weapon weaponInstance = (Weapon)weaponScene.Instantiate();
         inventory.AddChild(weaponInstance);
         weapon = weaponInstance;
+    }
+    public void heal(int count)
+    {
+        if(health <= 120)
+            health += count;
+    }
+    public void _on_timer_timeout()
+    {
+        health -= 1;
+        timer.Start();
+        GD.Print(health);
+        if(health <= 0)
+            GetTree().ReloadCurrentScene();
     }
 }
