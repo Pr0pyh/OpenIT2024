@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Gun : Weapon
+public partial class Cleaver : Weapon
 {
     AnimationPlayer animPlayer;
     PackedScene gunPickupScene;
@@ -19,7 +19,7 @@ public partial class Gun : Weapon
     {
         GunPickup gunPickup = (GunPickup)gunPickupScene.Instantiate();
         gunPickup.GlobalPosition = dropLocation;
-        gunPickup.gunScene = ResourceLoader.Load<PackedScene>("res://scenes/Weapon/Gun/Gun.tscn");
+        gunPickup.gunScene = ResourceLoader.Load<PackedScene>("res://scenes/Weapon/Cleaver/Cleaver.tscn");
         GetParent().GetParent().GetParent().GetParent().AddChild(gunPickup);
         QueueFree();
     }

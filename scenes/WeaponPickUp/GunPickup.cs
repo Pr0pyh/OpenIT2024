@@ -4,7 +4,7 @@ using System;
 public partial class GunPickup : Area3D
 {
     [Export]
-    PackedScene gunScene;
+    public PackedScene gunScene;
     //privatne scene
     Label label;
     Player player;
