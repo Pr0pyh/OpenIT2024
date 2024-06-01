@@ -71,6 +71,7 @@ script = ExtResource("1_pedu4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.918612, -0.359128, 0.164861, 0.395161, 0.834848, -0.383246, 0, 0.417201, 0.908814, 0, 0, 1.37733)
+layers = 2
 mesh = SubResource("BoxMesh_jgowb")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]

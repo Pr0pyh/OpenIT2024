@@ -18,6 +18,7 @@ public partial class Player : CharacterBody3D
     public float sensitivity;
     //private scene promenjive
     Camera3D camera;
+    Camera3D viewportCamera;
     Weapon weapon;
     Node3D inventory;
     Timer timer;
@@ -30,6 +31,7 @@ public partial class Player : CharacterBody3D
     {
         //pristupanje scenama
         camera = GetNode<Camera3D>("Camera3D");
+        viewportCamera = camera.GetNode<SubViewportContainer>("SubViewportContainer").GetNode<SubViewport>("SubViewport").GetNode<Camera3D>("Camera3D");
         inventory = camera.GetNode<Node3D>("Inventory");
         timer = GetNode<Timer>("Timer");
         //inicijalizacija
@@ -58,6 +60,7 @@ public partial class Player : CharacterBody3D
                 swayMove(delta);
                 shootState();
                 exitState();
+                cameraUpdate();
                 break;
             case STATE.SHOOTING:
                 break;
@@ -65,6 +68,10 @@ public partial class Player : CharacterBody3D
     }
 
     //privatne funkcije
+    private void cameraUpdate()
+    {
+        viewportCamera.GlobalTransform = camera.GlobalTransform;
+    }
     private void exitState()
     {
         if(Input.IsActionPressed("exit"))
