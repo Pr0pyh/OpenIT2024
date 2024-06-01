@@ -13,7 +13,7 @@ public partial class Player : CharacterBody3D
 
     //export promenjive
     [Export]
-    public int speed;
+    public float speed;
     [Export]
     public float sensitivity;
     //private scene promenjive
@@ -26,6 +26,7 @@ public partial class Player : CharacterBody3D
     float mouseMove;
     float sway = 5;
     int health = 100;
+    double stamina = 50;
     double amount;
     double trauma;
     //public override funkcije
@@ -92,6 +93,23 @@ public partial class Player : CharacterBody3D
         if(Input.IsActionPressed("left"))
             moveVector -= camera.GlobalTransform.Basis.X;
         moveVector = new Vector3(moveVector.X, 0.0f, moveVector.Z);
+
+        //sprint
+        if(Input.IsActionPressed("sprint") && stamina>0)
+        {
+            stamina -= 25*delta;
+            speed = 10f;
+        }
+        else
+        {
+            speed = 5f;
+        }
+        
+        if(Input.IsActionJustReleased("sprint"))
+        {
+            stamina = 50.0f;
+            speed = 5f;
+        }
 
         Velocity = moveVector*speed;
         MoveAndSlide();

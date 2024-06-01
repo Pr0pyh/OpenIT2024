@@ -5,13 +5,20 @@ public partial class GunPickup : Area3D
 {
     [Export]
     public PackedScene gunScene;
+    [Export]
+    public PackedScene gunModelScene;
     //privatne scene
     Label label;
     Player player;
+    AnimationPlayer animPlayer;
     public override void _Ready()
     {
         label = GetNode<CanvasLayer>("CanvasLayer").GetNode<Label>("Label");
+        animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        animPlayer.Play("bob");
         label.Visible = false;
+        Node3D gunModel = (Node3D)gunModelScene.Instantiate();
+        AddChild(gunModel);
     }
     public override void _PhysicsProcess(double delta)
     {

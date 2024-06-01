@@ -20,7 +20,7 @@ public partial class Cleaver : Weapon
         if(rayCast.IsColliding() && rayCast.GetCollider().GetType() == typeof(Enemy))
         {
             Enemy enemy = (Enemy)rayCast.GetCollider();
-            player.heal(enemy.damage(5, player));
+            player.heal(enemy.damage(1, player));
             return 0.2f;
         }
         return 0.01;
@@ -30,6 +30,7 @@ public partial class Cleaver : Weapon
     {
         GunPickup gunPickup = (GunPickup)gunPickupScene.Instantiate();
         gunPickup.gunScene = ResourceLoader.Load<PackedScene>("res://scenes/Weapon/Cleaver/Cleaver.tscn");
+        gunPickup.gunModelScene = ResourceLoader.Load<PackedScene>("res://assets/models/cleaver/sataraPick.tscn");
         GetParent().GetParent().GetParent().GetParent().AddChild(gunPickup);
         gunPickup.GlobalPosition = dropLocation;
         QueueFree();
