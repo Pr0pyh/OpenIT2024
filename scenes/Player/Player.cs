@@ -21,6 +21,8 @@ public partial class Player : CharacterBody3D
     Weapon weapon;
     Node3D inventory;
     //private promenjive
+    float mouseMove;
+    float sway = 5;
     //public override funkcije
     public override void _Ready()
     {
@@ -36,6 +38,7 @@ public partial class Player : CharacterBody3D
     {
         if(@event is InputEventMouseMotion mouseMotion)
         {
+            mouseMove = -mouseMotion.Relative.X;
             camera.RotateX(Mathf.DegToRad(mouseMotion.Relative.Y*sensitivity*-1));
 			camera.RotationDegrees = new Vector3(Mathf.Clamp(camera.RotationDegrees.X, -75.0f, 75.0f), 0.0f, 0.0f);
 			this.RotateY(Mathf.DegToRad(mouseMotion.Relative.X*sensitivity*-1));
@@ -48,6 +51,7 @@ public partial class Player : CharacterBody3D
         {
             case STATE.MOVING:
                 moveState(delta);
+                swayMove(delta);
                 shootState();
                 exitState();
                 break;
@@ -83,6 +87,18 @@ public partial class Player : CharacterBody3D
     {
         if(Input.IsActionJustPressed("shoot") && weapon != null)
             weapon.shoot();
+    }
+    private void swayMove(double delta)
+    {
+        if(mouseMove != null)
+        {
+            if(mouseMove > sway)
+                inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, 0.1f, 0.0f), (float)(delta*5));
+            else if(mouseMove < -sway)
+                inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, -0.1f, 0.0f), (float)(delta*5));
+            else
+				inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, 0.0f, 0.0f), (float)(delta*5));
+        }
     }
     //public metode
     public void pickup(PackedScene weaponScene)
