@@ -12,15 +12,17 @@ public partial class Cleaver : Weapon
         gunPickupScene = ResourceLoader.Load<PackedScene>("res://scenes/WeaponPickUp/GunPickup.tscn");
         rayCast = GetNode<RayCast3D>("RayCast3D");
     }
-    public override void shoot(Player player)
+    public override double shoot(Player player)
     {
         rayCast.ForceRaycastUpdate();
+        animPlayer.Play("shoot");
         if(rayCast.IsColliding() && rayCast.GetCollider().GetType() == typeof(Enemy))
         {
             Enemy enemy = (Enemy)rayCast.GetCollider();
             player.heal(enemy.damage(5, player));
+            return 0.2f;
         }
-        animPlayer.Play("shoot");
+        return 0.01;
     }
 
     public override void drop(Vector3 dropLocation)

@@ -18,7 +18,7 @@ public partial class Gun : Weapon
         flash = GetNode<Node3D>("Flash");
         flash.Visible = false;
     }
-    public override void shoot(Player player)
+    public override double shoot(Player player)
     {
         random.Randomize();
         rayCast.TargetPosition = new Godot.Vector3(random.RandfRange(-1.0f, 1.0f), random.RandfRange(-1.0f, 1.0f), -20.0f);
@@ -32,6 +32,7 @@ public partial class Gun : Weapon
             player.heal(enemy.damage(3, player));
         }
         animPlayer.Play("shoot");
+        return 0.03;
     }
 
     public override void drop(Vector3 dropLocation)

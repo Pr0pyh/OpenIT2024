@@ -26,6 +26,8 @@ public partial class Player : CharacterBody3D
     float mouseMove;
     float sway = 5;
     int health = 100;
+    double amount;
+    double trauma;
     //public override funkcije
     public override void _Ready()
     {
@@ -59,6 +61,7 @@ public partial class Player : CharacterBody3D
                 moveState(delta);
                 swayMove(delta);
                 shootState();
+                shakeState(delta);
                 exitState();
                 cameraUpdate();
                 break;
@@ -98,7 +101,7 @@ public partial class Player : CharacterBody3D
     {
         if(Input.IsActionJustPressed("shoot") && weapon != null)
         {
-            weapon.shoot(this);
+            trauma = weapon.shoot(this);
         }
     }
     private void swayMove(double delta)
@@ -113,6 +116,20 @@ public partial class Player : CharacterBody3D
 				inventory.Rotation = inventory.Rotation.Lerp(new Godot.Vector3(0.0f, 0.0f, 0.0f), (float)(delta*5));
         }
     }
+    private void shake()
+    {
+        amount = trauma;
+		camera.HOffset = (float)(1 * amount * GD.RandRange(-1, 1));
+		camera.VOffset = (float)(1 * amount * GD.RandRange(-1, 1));
+    }
+    private void shakeState(double delta)
+	{
+		if(!(trauma < 0.0))
+		{
+			shake();
+			trauma = Mathf.Max((float)(trauma - 0.8*delta), 0.0f);
+		}
+	}
     //public metode
     public void pickup(PackedScene weaponScene)
     {
