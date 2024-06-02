@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cakcpcbgj3xg5" path="res://scenes/Enemy/Enemy.tscn" id="4_d6ejy"]
 [ext_resource type="PackedScene" uid="uid://b6wwnifyin7xk" path="res://assets/models/gun/pistoljcePick.tscn" id="5_qtkhe"]
 [ext_resource type="PackedScene" uid="uid://b30empv0i5u28" path="res://assets/models/cleaver/sataraPick.tscn" id="7_nt6a3"]
-[ext_resource type="PackedScene" uid="uid://d1ca6cqh1ofu7" path="res://assets/models/enemies/fuzhu_bugaa.tscn" id="9_kaocf"]
+[ext_resource type="PackedScene" uid="uid://d1ca6cqh1ofu7" path="res://scenes/Enemy/fuzhu_bugaa.tscn" id="9_kaocf"]
 
 [sub_resource type="Environment" id="Environment_xvaly"]
 background_mode = 1

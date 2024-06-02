@@ -5,6 +5,8 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lh7y0"]
 
 [node name="Player" type="CharacterBody3D"]
+axis_lock_linear_y = true
+axis_lock_angular_y = true
 script = ExtResource("1_rp7mq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

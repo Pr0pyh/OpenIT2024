@@ -8,7 +8,9 @@ public partial class fuzhu_bugaa : CharacterBody3D
 		TRACKING,
 		ATTACKING
 	}
-	
+	[Export]
+    int health = 10;
+    AnimationPlayer animPlayer;
 	RobotState state;
 	Vector3 lastPlayerPos;
 	Player player;
@@ -24,11 +26,10 @@ public partial class fuzhu_bugaa : CharacterBody3D
 		agent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		area = GetNode<Area3D>("Area3D");
 		timer = GetNode<Timer>("Timer");
+		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 	}
-	
 	public override void _PhysicsProcess(double delta)
 	{			
-		GD.Print($"Robot state: {this.state}");
 		
 		switch (state) 
 		{
@@ -50,10 +51,10 @@ public partial class fuzhu_bugaa : CharacterBody3D
 				direction = lastPlayerPos - this.GlobalPosition;
 				direction.Y = 0.0f;
 				
-				Velocity = direction*1.2f;
+				Velocity = direction*1.1f;
 			} break;
 		}
-		
+		animPlayer.Play("running");
 		MoveAndSlide();
 	}
 	
@@ -68,6 +69,17 @@ public partial class fuzhu_bugaa : CharacterBody3D
 		}
 	}
 	
+	public int damage(int count, Player player)
+    {
+        health -= count;
+        GD.Print(health);
+        if(health <= 0)
+        {
+            QueueFree();
+            return 10;
+        }
+        return 0;
+    }
 	private void _on_timer_timeout()
 	{
 		this.state = RobotState.TRACKING;

@@ -45,6 +45,11 @@ public partial class Gun : Weapon
             Enemy enemy = (Enemy)rayCast.GetCollider();
             player.heal(enemy.damage(3, player));
         }
+        if(rayCast.IsColliding() && rayCast.GetCollider().GetType() == typeof(fuzhu_bugaa))
+        {
+            fuzhu_bugaa enemy = (fuzhu_bugaa)rayCast.GetCollider();
+            player.heal(enemy.damage(3, player));
+        }
         magazine -= 1;
         animPlayer.Stop();
         animPlayer.Play("shoot");

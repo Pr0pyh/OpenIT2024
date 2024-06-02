@@ -23,6 +23,12 @@ public partial class Cleaver : Weapon
             player.heal(enemy.damage(1, player));
             return 0.2f;
         }
+        if(rayCast.IsColliding() && rayCast.GetCollider().GetType() == typeof(fuzhu_bugaa))
+        {
+            fuzhu_bugaa enemy = (fuzhu_bugaa)rayCast.GetCollider();
+            player.heal(enemy.damage(1, player));
+            return 0.2f;
+        }
         return 0.01;
     }
 

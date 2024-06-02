@@ -14,6 +14,7 @@ public partial class Enemy : CharacterBody3D
     {
         animPlayer.Play("damage");
         health -= count;
+        GD.Print(health);
         if(health <= 0)
         {
             QueueFree();
