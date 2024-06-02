@@ -21,23 +21,23 @@ ambient_light_color = Color(0.2, 0.505882, 0.67451, 1)
 vertices = PackedVector3Array(-5.75, 0.5, -7, -5.75, 0.5, 7, 7, 0.5, 7, 7, 0.5, -7)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgh2k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1o0wo"]
 albedo_texture = ExtResource("2_b6tty")
 uv1_scale = Vector3(10, 10, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_22y3v"]
-material = SubResource("StandardMaterial3D_vgh2k")
+material = SubResource("StandardMaterial3D_1o0wo")
 size = Vector2(15, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8l3cf"]
 size = Vector3(15, 0, 15)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8ejf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2v5kj"]
 albedo_texture = ExtResource("3_l6bwd")
 uv1_scale = Vector3(10, 10, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gli5f"]
-material = SubResource("StandardMaterial3D_g8ejf")
+material = SubResource("StandardMaterial3D_2v5kj")
 size = Vector2(15, 15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5bib1"]
@@ -79,6 +79,9 @@ sky_mode = 1
 
 [node name="Enemy" parent="." instance=ExtResource("4_d6ejy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+weaponPickScene = ExtResource("2_gflus")
+weapon = ExtResource("3_8n0bf")
+weaponDisplay = ExtResource("7_nt6a3")
 
 [node name="fuzhu bugaa" parent="." instance=ExtResource("9_kaocf")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 8.62433, 1.33677, -2.17288)

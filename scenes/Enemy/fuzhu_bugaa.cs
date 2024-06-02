@@ -11,7 +11,7 @@ public partial class fuzhu_bugaa : CharacterBody3D
 		STUNNED
 	}
 	[Export]
-    int health = 10;
+    int health = 50;
     AnimationPlayer animPlayer;
 	RobotState state;
 	Vector3 lastPlayerPos;
