@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d1ca6cqh1ofu7"]
+[gd_scene load_steps=32 format=3 uid="uid://d1ca6cqh1ofu7"]
 
 [ext_resource type="Script" path="res://scenes/Enemy/fuzhu_bugaa.cs" id="1_fkiwj"]
 
@@ -598,8 +598,40 @@ tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = PackedFloat32Array(0, 1, 2.98023e-08, -1.38993e-07, -1.18587e-07, 1, 0.533333, 1, 2.98023e-08, -1.38993e-07, -1.18587e-07, 1, 0.566667, 1, 0.00499317, -1.39584e-07, -1.17892e-07, 0.999988, 0.6, 1, 0.016922, -1.4098e-07, -1.16218e-07, 0.999857, 0.633333, 1, 0.0357094, -1.43139e-07, -1.13548e-07, 0.999362, 0.666667, 1, 0.0592544, -1.45776e-07, -1.10143e-07, 0.998243, 0.7, 1, 0.0848938, -1.48559e-07, -1.06359e-07, 0.99639, 0.733333, 1, 0.108886, -1.51079e-07, -1.02748e-07, 0.994054, 0.766667, 1, 0.129127, -1.53142e-07, -9.96466e-08, 0.991628, 0.8, 1, 0.143557, -1.44445e-07, -1.06829e-07, 0.989642, 0.833333, 1, 0.150142, -1.04561e-07, -1.43493e-07, 0.988664, 0.866667, 1, 0.136596, -1.03143e-07, -1.45687e-07, 0.990627, 0.9, 1, 0.107568, -1.0005e-07, -1.50281e-07, 0.994198, 0.933333, 1, 0.067985, -9.57145e-08, -1.56314e-07, 0.997686, 0.966667, 1, 0.0229821, -9.06214e-08, -1.62851e-07, 0.999736, 1, 1, -0.0220937, -8.53485e-08, -1.69054e-07, 0.999756, 1.03333, 1, -0.056553, -8.12141e-08, -1.73552e-07, 0.9984, 1.06667, 1, -0.0753765, -1.25975e-07, -1.32153e-07, 0.997155, 1.1, 1, -0.0803366, -1.56739e-07, -1.03588e-07, 0.996768, 1.13333, 1, -0.0752194, -1.57387e-07, -1.02937e-07, 0.997167, 1.16667, 1, -0.0658321, -1.58591e-07, -1.01712e-07, 0.997831, 1.2, 1, -0.0530149, -1.60225e-07, -1.00014e-07, 0.998594, 1.23333, 1, -0.0393286, -1.61944e-07, -9.81791e-08, 0.999226, 1.26667, 1, -0.0259212, -1.63601e-07, -9.63621e-08, 0.999664, 1.3, 1, -0.0139445, -1.65057e-07, -9.47231e-08, 0.999903, 1.33333, 1, -0.00455244, -1.66183e-07, -9.34274e-08, 0.99999, 1.36667, 1, -0.000910468, -1.44431e-07, -1.13555e-07, 1, 1.375, 1, 2.98023e-08, -1.38993e-07, -1.18587e-07, 1)
 
+[sub_resource type="Animation" id="Animation_8rohy"]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_w2tcp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ctnq4"]
 _data = {
+"RESET": SubResource("Animation_w2tcp"),
+"damage": SubResource("Animation_8rohy"),
 "running": SubResource("Animation_88lnx")
 }
 
@@ -608,6 +640,27 @@ radius = 8.5922
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qk3dv"]
 size = Vector3(2, 2, 3.00244)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5k4pp"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+inherit_velocity_ratio = 0.224
+direction = Vector3(0, 0, 0)
+spread = 122.91
+angular_velocity_max = 515.82
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 0.45
+radial_accel_max = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmxve"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i1kuu"]
+material = SubResource("StandardMaterial3D_kmxve")
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gbrpe"]
+size = Vector3(3, 1, 4)
 
 [node name="fuzhu bugaa" type="CharacterBody3D"]
 script = ExtResource("1_fkiwj")
@@ -821,5 +874,26 @@ shape = SubResource("BoxShape3D_qk3dv")
 wait_time = 3.0
 one_shot = true
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+emitting = false
+amount = 12
+sub_emitter = NodePath(".")
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.75
+explosiveness = 1.0
+visibility_aabb = AABB(-1, -1, -1, 2, 2, 2)
+process_material = SubResource("ParticleProcessMaterial_5k4pp")
+draw_pass_1 = SubResource("BoxMesh_i1kuu")
+
+[node name="DamageArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+shape = SubResource("BoxShape3D_gbrpe")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

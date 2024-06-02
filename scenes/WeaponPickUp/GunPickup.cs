@@ -7,6 +7,8 @@ public partial class GunPickup : Area3D
     public PackedScene gunScene;
     [Export]
     public PackedScene gunModelScene;
+    [Export]
+    public int magazine;
     //privatne scene
     Label label;
     Player player;
@@ -24,7 +26,7 @@ public partial class GunPickup : Area3D
     {
         if(Input.IsActionJustPressed("pickup") && player != null)
         {
-            player.pickup(gunScene);
+            player.pickup(gunScene, magazine);
             label.Visible = false;
             player = null;
             QueueFree();

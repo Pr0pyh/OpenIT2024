@@ -6,6 +6,7 @@ public partial class Cleaver : Weapon
     AnimationPlayer animPlayer;
     PackedScene gunPickupScene;
     RayCast3D rayCast;
+    public int magazine = 0;
     public override void _Ready()
     {
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");   
@@ -37,6 +38,7 @@ public partial class Cleaver : Weapon
         GunPickup gunPickup = (GunPickup)gunPickupScene.Instantiate();
         gunPickup.gunScene = ResourceLoader.Load<PackedScene>("res://scenes/Weapon/Cleaver/Cleaver.tscn");
         gunPickup.gunModelScene = ResourceLoader.Load<PackedScene>("res://assets/models/cleaver/sataraPick.tscn");
+        gunPickup.magazine = magazine;
         GetParent().GetParent().GetParent().GetParent().AddChild(gunPickup);
         gunPickup.GlobalPosition = dropLocation;
         QueueFree();

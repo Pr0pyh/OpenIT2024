@@ -22,6 +22,7 @@ public partial class Player : CharacterBody3D
     Weapon weapon;
     Node3D inventory;
     Timer timer;
+    AnimationPlayer animPlayer;
     //private promenjive
     float mouseMove;
     float sway = 5;
@@ -37,10 +38,12 @@ public partial class Player : CharacterBody3D
         viewportCamera = camera.GetNode<SubViewportContainer>("SubViewportContainer").GetNode<SubViewport>("SubViewport").GetNode<Camera3D>("Camera3D");
         inventory = camera.GetNode<Node3D>("Inventory");
         timer = GetNode<Timer>("Timer");
+        animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         //inicijalizacija
         state = STATE.MOVING;
         Input.MouseMode = Input.MouseModeEnum.Captured;
         timer.Start();
+        animPlayer.Play("entry");
     }
 
     public override void _Input(InputEvent @event)
@@ -149,17 +152,25 @@ public partial class Player : CharacterBody3D
 		}
 	}
     //public metode
-    public void pickup(PackedScene weaponScene)
+    public void pickup(PackedScene weaponScene, int magazine)
     {
         if(weapon != null) weapon.drop(GlobalPosition);
         Weapon weaponInstance = (Weapon)weaponScene.Instantiate();
         inventory.AddChild(weaponInstance);
         weapon = weaponInstance;
+        weapon.load(magazine);
     }
     public void heal(int count)
     {
         if(health <= 120)
             health += count;
+    }
+    public void damage(int count)
+    {
+        health -= 10;
+        trauma = 0.5f;
+        if(health < 0)
+            GetTree().ReloadCurrentScene();
     }
     public void _on_timer_timeout()
     {

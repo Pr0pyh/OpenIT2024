@@ -11,7 +11,7 @@ public partial class Gun : Weapon
     Node3D flash;
     Label label;
     //private promenjive
-    int magazine = 7;
+    public int magazine = 7;
     public override void _Ready()
     {
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -55,12 +55,16 @@ public partial class Gun : Weapon
         animPlayer.Play("shoot");
         return 0.03;
     }
-
+    public override void load(int magazine)
+    {
+        this.magazine = magazine;
+    }
     public override void drop(Vector3 dropLocation)
     {
         GunPickup gunPickup = (GunPickup)gunPickupScene.Instantiate();
         gunPickup.gunScene = ResourceLoader.Load<PackedScene>("res://scenes/Weapon/Gun/Gun.tscn");
         gunPickup.gunModelScene = ResourceLoader.Load<PackedScene>("res://assets/models/gun/pistoljcePick.tscn");
+        gunPickup.magazine = magazine;
         GetParent().GetParent().GetParent().GetParent().AddChild(gunPickup);
         gunPickup.GlobalPosition = dropLocation;
         QueueFree();
