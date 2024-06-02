@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d1ca6cqh1ofu7"]
+[gd_scene load_steps=31 format=3 uid="uid://d1ca6cqh1ofu7"]
 
 [ext_resource type="Script" path="res://scenes/Enemy/fuzhu_bugaa.cs" id="1_fkiwj"]
 
@@ -613,24 +613,8 @@ tracks/0/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_w2tcp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles3D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ctnq4"]
 _data = {
-"RESET": SubResource("Animation_w2tcp"),
 "damage": SubResource("Animation_8rohy"),
 "running": SubResource("Animation_88lnx")
 }
@@ -669,7 +653,7 @@ script = ExtResource("1_fkiwj")
 transform = Transform3D(0.358709, 0, 0, 0, 0.142816, 0, 0, 0, 0.0805253, 0, 1.60963, 0)
 
 [node name="Armature" type="Node3D" parent="."]
-transform = Transform3D(0.338134, 0, 0, 0, -0.337819, -0.0093244, 0, 0.0122428, -0.257291, -0.439584, -0.694736, -1.47952)
+transform = Transform3D(0.338134, 0, 0, 0, -0.337819, -0.00932438, 0, 0.0122428, -0.257291, -0.439584, -0.694736, -1.47952)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Armature"]
 bones/0/name = "Bone.004"
